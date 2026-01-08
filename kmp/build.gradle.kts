@@ -8,6 +8,13 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
 }
 
+allprojects {
+    configurations.configureEach {
+        resolutionStrategy.force("androidx.activity:activity-compose:1.12.2")
+    }
+}
+
+
 tasks.register("syncWeb") {
     dependsOn(":shared-logic:syncJsToAngular")
 }

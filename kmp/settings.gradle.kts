@@ -30,3 +30,5 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":shared-logic")
+include(":shared-ui")
+include(":androidApp")
