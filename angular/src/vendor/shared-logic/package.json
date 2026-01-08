@@ -1,0 +1,13 @@
+{
+  "name": "kmp-shared-logic",
+  "version": "0.0.0-unspecified",
+  "main": "kmp-shared-logic.js",
+  "types": "kmp-shared-logic.d.ts",
+  "devDependencies": {
+    "typescript": "5.9.2"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": []
+}
