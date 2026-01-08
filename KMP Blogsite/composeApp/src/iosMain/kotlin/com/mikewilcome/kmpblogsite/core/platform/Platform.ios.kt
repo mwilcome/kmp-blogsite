@@ -1,4 +1,4 @@
-package com.mikewilcome.kmpblogsite
+package com.mikewilcome.kmpblogsite.core.platform
 
 import platform.UIKit.UIDevice
 
