@@ -8,6 +8,5 @@ kotlin {
 
     sourceSets {
         commonMain {}
-        commonTest {}
     }
 }
