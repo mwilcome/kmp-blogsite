@@ -1,59 +1,70 @@
-# KMP (Kotlin Multiplatform)
+# Kotlin Multiplatform (KMP)
 
-This directory contains the Kotlin Multiplatform (KMP) portion of the project.
+This directory contains the Kotlin Multiplatform portion of the project.
 
-It is intentionally split into **logic**, **UI**, and **application shell** so that:
-- shared business logic can be consumed by **Android** and **Angular**
-- mobile UI can exist independently without affecting JS output
-- web UI remains entirely owned by Angular
+It is intentionally split into **logic**, **UI**, and **application shell** to keep
+concerns isolated and prevent accidental coupling between Android and web.
+
+The goal is not “maximum sharing”, but **controlled sharing**.
 
 ---
 
 ## Modules
 
 ### `shared-logic`
-Core shared logic module.
+
+Pure shared logic.
 
 Targets:
 - Android
 - JavaScript (IR)
-- iOS (present but currently dormant)
+- iOS (present but currently unused)
 
 Responsibilities:
 - Business logic
 - Pure functions
 - Data transformations
-- JS-exported APIs consumed by Angular
+- APIs exported to JavaScript
 
-This module **does generate JavaScript and TypeScript definitions** and is the
-_only_ module that feeds the Angular app.
+This is the **only** module that:
+- Produces JavaScript
+- Produces TypeScript definitions
+- Feeds the Angular application
+
+No UI code exists here.
 
 ---
 
 ### `shared-ui`
-Shared Compose UI module.
+
+Android-only shared UI.
 
 Targets:
-- Android only (by design)
+- Android
 
 Responsibilities:
-- Shared mobile UI components
-- Compose-based layouts
-- No business logic
-- No JS target
+- Compose UI
+- Layout and presentation
+- Calling into `shared-logic` when needed
 
-This module exists to prove that shared UI can be reintroduced without impacting
-the JS pipeline or Angular in any way.
+This module **does not**:
+- Target JavaScript
+- Export anything to Angular
+- Contain business logic
+
+Its existence proves that shared UI can be added without affecting the JS pipeline.
 
 ---
 
-### `composeApp`
+### `composeApp` / `androidApp`
+
 Android application shell.
 
 Responsibilities:
 - Android entry point
-- Wiring shared UI and shared logic together
-- Platform-specific setup
+- Activity setup
+- Hosting Compose
+- Wiring `shared-ui` and `shared-logic` together
 
 This module depends on:
 - `shared-logic`
@@ -61,10 +72,17 @@ This module depends on:
 
 ---
 
-## Build & Dev Workflow
+## Build Notes
 
-### Sync shared logic into Angular
-From this directory:
+The KMP project can be built independently.
+
+For web integration, a single Gradle task is exposed:
 
 ```bash
 ./gradlew syncWeb
+````
+
+This task builds `shared-logic` for JavaScript and copies the output into the
+Angular project.
+
+In practice, this task is invoked by Angular’s `npm start` script.
