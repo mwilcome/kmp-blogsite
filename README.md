@@ -1,4 +1,4 @@
-# KMP Blog Site
+# KMP Angular Bridge
 
 This repository is a **single monorepo** containing two things:
 
