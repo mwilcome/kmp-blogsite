@@ -1,0 +1,32 @@
+:host {
+    display: block;
+    min-height: 100vh;
+  }
+  
+  .doc {
+    padding: 24px;
+    padding-bottom: 96px; // space so text doesn't hide under the bottom bar
+  }
+  
+  .meta {
+    opacity: 0.8;
+    margin-bottom: 16px;
+  }
+  
+  .bottom-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(8px);
+  }
+  
+  .bottom-bar button {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+  

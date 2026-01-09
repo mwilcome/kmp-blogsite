@@ -15,6 +15,14 @@ allprojects {
 }
 
 
+tasks.register("syncWebDev") {
+    dependsOn(":shared-logic:syncJsToAngularDev")
+}
+
+tasks.register("syncWebProd") {
+    dependsOn(":shared-logic:syncJsToAngularProd")
+}
+
 tasks.register("syncWeb") {
-    dependsOn(":shared-logic:syncJsToAngular")
+    dependsOn("syncWebDev")
 }

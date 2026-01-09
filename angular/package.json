@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "cd .. && ./kmp/gradlew -p kmp syncWeb && cd angular && ng serve",
+    "start": "cd .. && ./kmp/gradlew -p kmp syncWebDev && cd angular && ng serve",
+    "sync:kmp:dev": "cd .. && ./kmp/gradlew -p kmp syncWebDev",
+    "sync:kmp:prod": "cd .. && ./kmp/gradlew -p kmp syncWebProd",
+    "build:with-kmp-prod": "cd .. && ./kmp/gradlew -p kmp syncWebProd && cd angular && ng build",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

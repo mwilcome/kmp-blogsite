@@ -141,6 +141,10 @@
     return globalInterfaceId;
   }
   var globalInterfaceId;
+  function initMetadataForClass(ctor, name, defaultConstructor, parent, interfaces, suspendArity, associatedObjectKey, associatedObjects) {
+    var kind = 'class';
+    initMetadataFor(kind, ctor, name, defaultConstructor, parent, interfaces, suspendArity, associatedObjectKey, associatedObjects);
+  }
   function initMetadataFor(kind, ctor, name, defaultConstructor, parent, interfaces, suspendArity, associatedObjectKey, associatedObjects) {
     if (!(parent == null)) {
       ctor.prototype = Object.create(parent.prototype);
@@ -156,6 +160,15 @@
   function initMetadataForObject(ctor, name, defaultConstructor, parent, interfaces, suspendArity, associatedObjectKey, associatedObjects) {
     var kind = 'object';
     initMetadataFor(kind, ctor, name, defaultConstructor, parent, interfaces, suspendArity, associatedObjectKey, associatedObjects);
+  }
+  function initMetadataForLambda(ctor, parent, interfaces, suspendArity) {
+    initMetadataForClass(ctor, 'Lambda', VOID, parent, interfaces, suspendArity, VOID, VOID);
+  }
+  function initMetadataForCoroutine(ctor, parent, interfaces, suspendArity) {
+    initMetadataForClass(ctor, 'Coroutine', VOID, parent, interfaces, suspendArity, VOID, VOID);
+  }
+  function initMetadataForFunctionReference(ctor, parent, interfaces, suspendArity) {
+    initMetadataForClass(ctor, 'FunctionReference', VOID, parent, interfaces, suspendArity, VOID, VOID);
   }
   function initMetadataForCompanion(ctor, parent, interfaces, suspendArity) {
     initMetadataForObject(ctor, 'Companion', VOID, parent, interfaces, suspendArity, VOID, VOID);
@@ -185,8 +198,10 @@
   _.$_$ = _.$_$ || {};
   _.$_$.a = VOID;
   _.$_$.b = defineProp;
-  _.$_$.c = initMetadataForObject;
-  _.$_$.d = protoOf;
+  _.$_$.c = initMetadataForClass;
+  _.$_$.d = initMetadataForCompanion;
+  _.$_$.e = initMetadataForObject;
+  _.$_$.f = protoOf;
   //endregion
   return _;
 }));

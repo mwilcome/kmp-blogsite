@@ -34,8 +34,15 @@ kotlin {
 }
 
 // Copies the JS library output into the Angular vendor folder
-val syncJsToAngular by tasks.registering(Copy::class) {
+val syncJsToAngularDev by tasks.registering(Copy::class) {
+    dependsOn("jsBrowserDevelopmentLibraryDistribution")
+    from(layout.buildDirectory.dir("dist/js/developmentLibrary"))
+    into(file("${project.projectDir}/../../angular/src/vendor/shared-logic"))
+}
+
+val syncJsToAngularProd by tasks.registering(Copy::class) {
     dependsOn("jsBrowserProductionLibraryDistribution")
     from(layout.buildDirectory.dir("dist/js/productionLibrary"))
     into(file("${project.projectDir}/../../angular/src/vendor/shared-logic"))
 }
+
